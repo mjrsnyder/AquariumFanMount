@@ -10,7 +10,7 @@ module bracket_side(wall_width, base_thickness, bracket_length, bracket_height) 
     rotate(a=[90,0,0]){
         difference(){
             linear_extrude(height=wall_width) {
-                polygon(points=[[0,0],[bracket_length-wall_width,0],[0,bracket_height-base_thickness]]);
+                polygon(points=[[0,0],[bracket_length-wall_width,0],[0,bracket_height-base_thickness],[0,0]]);
             }
             translate([7.5,7.5]){
                 cylinder(h=wall_width, d=screw_size);
@@ -51,8 +51,9 @@ module fan_bracket(depth) {
     cube([bracket_length,depth+(wall_width*2),base_thickness]);
    
     // back
-    cube([wall_width,depth+(wall_width*2),bracket_height]);
-
+    translate([0,0,base_thickness]){
+        cube([wall_width,depth+(wall_width*2),bracket_height-base_thickness]);
+    }
     
     // sides
     translate([wall_width,wall_width,base_thickness]){
